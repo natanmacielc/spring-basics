@@ -3,7 +3,6 @@ package br.com.dev.spring.essentials.domain.services;
 import br.com.dev.spring.essentials.api.assembler.EmployeeAssembler;
 import br.com.dev.spring.essentials.api.dto.EmployeeOut;
 import br.com.dev.spring.essentials.domain.entities.Employee;
-import br.com.dev.spring.essentials.domain.entities.Log;
 import br.com.dev.spring.essentials.domain.exceptions.EmployeeNotFoundException;
 import br.com.dev.spring.essentials.domain.repository.EmployeeRepository;
 import br.com.dev.spring.essentials.domain.repository.LogRepository;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,21 +26,12 @@ public class EmployeeService {
     private LogRepository log;
 
     public List<EmployeeOut> getResourceCollection() {
-        Log starting = this.logger();
-        starting.setLog(String.format("Starting [EmployeeService] getResourceCollection %s", starting.getTime()));
-        log.save(starting);
         List<Employee> employeeList = repository.findAll();
 
         if (employeeList.isEmpty()) {
-            Log exception = this.logger();
-            starting.setLog(String.format("List is Empty", starting.getTime()));
-            log.save(exception);
             throw new EmployeeNotFoundException("List is empty.");
         }
 
-        Log success = this.logger();
-        starting.setLog(String.format("Success [EmployeeService] getResourceCollection %s", starting.getTime()));
-        log.save(success);
         return this.assembler.toDTO(employeeList);
     }
 
@@ -61,11 +50,4 @@ public class EmployeeService {
         employee.setRegistrationDate(LocalDate.now());
         return repository.save(employee);
     }
-
-    private Log logger() {
-        Log log = new Log();
-        log.setTime(LocalDateTime.now());
-        return log;
-    }
-
 }
