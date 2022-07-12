@@ -3,14 +3,9 @@ package br.com.dev.spring.essentials.domain.services;
 import br.com.dev.spring.essentials.api.controller.AbstractMockMvc;
 import br.com.dev.spring.essentials.api.controller.fixture.EmployeeFixture;
 import br.com.dev.spring.essentials.api.dto.EmployeeOut;
-import br.com.dev.spring.essentials.domain.entities.Employee;
 import br.com.dev.spring.essentials.domain.exceptions.EmployeeNotFoundException;
 import br.com.dev.spring.essentials.domain.repository.EmployeeRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -84,6 +79,4 @@ public class EmployeeServiceTest extends AbstractMockMvc {
         assertEquals(value.intValue(), employeeOut.getAge());
         assertEquals(LocalDate.now(), employeeOut.getRegistrationDate());
     }
-
-
 }
